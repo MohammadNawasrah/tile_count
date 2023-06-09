@@ -27,11 +27,11 @@ class CRUD {
     );
   }
 
-  Future<int> deleteData(String tableName, int id) async {
+  Future<int> deleteData(String tableName, columnName, int id) async {
     final db = await _databaseConn.initDatabase();
     return await db.delete(
       tableName,
-      where: 'id = ?',
+      where: '$columnName = ?',
       whereArgs: [id],
     );
   }
