@@ -9,25 +9,30 @@ class CustomTextFormAuth extends StatelessWidget {
   TextEditingController? textController;
   bool justnumber;
   void Function()? onTapIcon;
+  double widthCutom;
   CustomTextFormAuth(
       {super.key,
       required this.hint,
       required this.textController,
-      required this.justnumber});
+      required this.justnumber,
+      this.widthCutom = 170});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 150,
+      width: widthCutom,
       child: TextFormField(
         keyboardType: justnumber ? TextInputType.number : TextInputType.text,
         style: const TextStyle(fontSize: 20),
         controller: textController,
         decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(fontSize: 15),
+            hintStyle: const TextStyle(
+              fontSize: 15,
+            ),
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 25),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 50),
+            alignLabelWithHint: true,
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(15))),
       ),
