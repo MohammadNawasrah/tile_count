@@ -5,11 +5,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tile_count/view/screen/dataRoom.dart';
+import 'package:tile_count/view/widget/dialogs/addHomeDialog.dart';
+import 'package:tile_count/view/widget/dialogs/deleteDialog.dart';
 import '../../home/homeController.dart';
 import '../../home/homeModel.dart';
 import '../widget/customButton.dart';
 import '../widget/customButtonIcon.dart';
-import '../widget/customTextForm.dart';
 
 class ListHomeShow extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
@@ -23,44 +24,10 @@ class ListHomeShow extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.defaultDialog(
-            cancel: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  // ignore: deprecated_member_use
-                  primary:
-                      Colors.green[400], // Change this to the color you want
-                ),
-                onPressed: () {
-                  Get.back();
-                },
-                child: const Text("الغاء")),
-            confirm: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  // ignore: deprecated_member_use
-                  primary: Colors.red[400], // Change this to the color you want
-                ),
-                onPressed: () {
-                  homeController.addHome();
-                  Get.back();
-                },
-                child: const Text("اضافة")),
-            content: Column(
-              children: [
-                CustomTextFormAuth(
-                    justnumber: false,
-                    hint: "اسم المنزل",
-                    textController: homeController.homeName),
-                const SizedBox(
-                  height: 10,
-                ),
-                CustomTextFormAuth(
-                    justnumber: true,
-                    hint: "سعر المتر",
-                    textController: homeController.priceAll),
-              ],
-            ),
-          );
+          showAddHomeDialog();
         },
+        backgroundColor: Colors.black,
+        tooltip: "اضافة بيت جديد",
         child: const Icon(Icons.add),
       ),
       body: GetBuilder<HomeController>(
@@ -100,31 +67,7 @@ class ListHomeShow extends StatelessWidget {
                                 icon: const Icon(Icons.delete_forever_outlined),
                                 buttonColor: Colors.red,
                                 onPress: () {
-                                  Get.defaultDialog(
-                                      middleText: "",
-                                      title: "حذف المنزل",
-                                      cancel: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              primary: const Color.fromRGBO(
-                                                  102, 187, 106, 1)),
-                                          child: const Text("الغاء"),
-                                          onPressed: () {
-                                            Get.back();
-                                          }),
-                                      confirm: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            primary: const Color.fromARGB(
-                                                255,
-                                                190,
-                                                41,
-                                                41), // Change this to the color you want
-                                          ),
-                                          child: const Text("تاكيد"),
-                                          onPressed: () {
-                                            controller.removeHome(
-                                                home.homeId!.toInt());
-                                            Get.back();
-                                          }));
+                                  showDeleteDialog(home.homeId!.toInt());
                                 },
                               ),
                             )
