@@ -23,9 +23,11 @@ class HomeController extends GetxController {
   }
 
   void addHome() {
-    if (priceAll.text == "" || homeName.text == "") {
-      priceAll.text = "0";
+    if (homeName.text == "") {
       homeName.text = "بدون اسم";
+    }
+    if (priceAll.text == "") {
+      priceAll.text = "0";
     }
     Home home = Home(
         homeId: 0,

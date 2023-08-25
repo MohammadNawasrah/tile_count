@@ -4,12 +4,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tile_count/home/homeController.dart';
 import 'package:tile_count/view/screen/dataRoom.dart';
+import 'package:tile_count/view/widget/dialogs/addHomeDialog.dart';
+import 'package:tile_count/view/widget/dialogs/deleteDialog.dart';
+import '../../home/homeController.dart';
 import '../../home/homeModel.dart';
 import '../widget/customButton.dart';
 import '../widget/customButtonIcon.dart';
-import '../widget/customTextForm.dart';
 
 class ListHomeShow extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
@@ -23,37 +24,10 @@ class ListHomeShow extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.defaultDialog(
-            cancel: CustomButton(
-                buttonColor: Colors.blue,
-                buttonText: "الغاء",
-                onPress: () {
-                  Get.back();
-                }),
-            confirm: CustomButton(
-                buttonColor: Colors.red,
-                buttonText: "تاكيد",
-                onPress: () {
-                  homeController.addHome();
-                  Get.back();
-                }),
-            content: Column(
-              children: [
-                CustomTextFormAuth(
-                    justnumber: false,
-                    hint: "اسم المنزل",
-                    textController: homeController.homeName),
-                const SizedBox(
-                  height: 10,
-                ),
-                CustomTextFormAuth(
-                    justnumber: true,
-                    hint: "سعر المتر",
-                    textController: homeController.priceAll),
-              ],
-            ),
-          );
+          showAddHomeDialog();
         },
+        backgroundColor: Colors.black,
+        tooltip: "اضافة بيت جديد",
         child: const Icon(Icons.add),
       ),
       body: GetBuilder<HomeController>(
@@ -93,23 +67,7 @@ class ListHomeShow extends StatelessWidget {
                                 icon: const Icon(Icons.delete_forever_outlined),
                                 buttonColor: Colors.red,
                                 onPress: () {
-                                  Get.defaultDialog(
-                                      middleText: "",
-                                      title: "حذف المنزل",
-                                      cancel: CustomButton(
-                                          buttonColor: Colors.blue,
-                                          buttonText: "الغاء",
-                                          onPress: () {
-                                            Get.back();
-                                          }),
-                                      confirm: CustomButton(
-                                          buttonColor: Colors.red,
-                                          buttonText: "تاكيد",
-                                          onPress: () {
-                                            controller.removeHome(
-                                                home.homeId!.toInt());
-                                            Get.back();
-                                          }));
+                                  showDeleteDialog(home.homeId!.toInt());
                                 },
                               ),
                             )
